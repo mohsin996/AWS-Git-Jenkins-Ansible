@@ -1,0 +1,10 @@
+Host vm2
+  Hostname vm2
+  User centos
+  StrictHostKeyChecking no
+  IdentityFile ~/.ssh/id_rsa
+Host vm3
+  Hostname vm3
+  User centos
+  StrictHostKeyChecking no
+  IdentityFile ~/.ssh/id_rsa

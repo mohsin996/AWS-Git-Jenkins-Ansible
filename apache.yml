@@ -1,0 +1,46 @@
+---
+- hosts: webservers
+  become: yes
+  tasks:
+   - name: install Apache server
+     yum:
+       name: httpd
+       state: latest 
+
+   - name: install git
+     yum:
+       name: git
+       state: latest
+
+   - name: enable and start Apache server
+     service:
+       name: httpd
+       enabled: yes
+       state: started
+
+   - name: create web admin group
+     group:
+       name: web
+       state: present
+  
+   - name: create web admin user
+     user:
+       name: webadm
+       comment: "Web Admin"
+       password: $6$rounds=656000$BfjYDe1vC4pVo0nd$mmG.lduxI1pkTdch0cF88o8vUMt/vzFzyiYKbbwsiRKMBDYAsGuvdTXmOTOvd6wp4/JRSNSIvmDQVL2sbtVTX/
+       groups: web
+       append: yes
+
+   - name: set content directory group/permissions 
+     file:
+       path: /var/www/html
+       owner: root
+       group: web
+       state: directory
+       mode: u=rwx,g=rwx,o=rx,g+s
+
+   - name: clone basic html template
+     git: repo=https://github.com/do-community/ansible-apache-tutorial.git dest=/var/www/html update=no
+
+
+
