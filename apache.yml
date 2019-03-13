@@ -5,7 +5,7 @@
    - name: install Apache server
      yum:
        name: httpd
-       state: latest 
+       state: latest
 
    - name: install git
      yum:
@@ -22,7 +22,7 @@
      group:
        name: web
        state: present
-  
+
    - name: create web admin user
      user:
        name: webadm
@@ -31,7 +31,7 @@
        groups: web
        append: yes
 
-   - name: set content directory group/permissions 
+   - name: set content directory group/permissions
      file:
        path: /var/www/html
        owner: root
@@ -40,7 +40,4 @@
        mode: u=rwx,g=rwx,o=rx,g+s
 
    - name: clone basic html template
-     git: repo=https://github.com/do-community/ansible-apache-tutorial.git dest=/var/www/html update=no
-
-
-
+     git: repo=https://github.com/mohsin996/sdcm.git dest=/var/www/html update=yes
